@@ -1,0 +1,19 @@
+== layer 0: blobs/sha256/3f26bc2dec0b515f1c2818f6e13a8f1da1f88179a008445d4e587233386bff78
+   created_by: ADD alpine-minirootfs-3.20.10-aarch64.tar.gz / # buildkit
+  DIR  1777 0:0 size=0    tmp
+== layer 1: blobs/sha256/7da7cf941a59c6753cfad65b72c555b47cf53f8f0feaa47b54ff071bbdda5c58
+   created_by: COPY foo /tmp/foo # buildkit
+  DIR  1777 0:0 size=0    tmp
+  REG  0644 0:0 size=48   tmp/foo
+         content: 'CONTENT-OF-foo: I am the regular file named foo'
+== layer 2: blobs/sha256/4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1
+   created_by: RUN /bin/sh -c echo "--- ls -la /tmp ---" && ls -la /tmp && for p in /tmp/foo /tmp/.wh.foo; do if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done # buildkit
+   (0 entries, none under tmp/)
+== layer 3: blobs/sha256/6ef5cf629b25553b2a9232a0685e471a3c91cad8ef501393e7b0c54925dabda0
+   created_by: COPY .wh.foo /tmp/.wh.foo # buildkit
+  DIR  1777 0:0 size=0    tmp
+  REG  0644 0:0 size=64   tmp/.wh.foo   <-- .wh. name
+         content: 'CONTENT-OF-.wh.foo: I am a regular file literally named .wh.foo'
+== layer 4: blobs/sha256/4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1
+   created_by: RUN /bin/sh -c echo "--- ls -la /tmp ---" && ls -la /tmp && for p in /tmp/foo /tmp/.wh.foo; do if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done # buildkit
+   (0 entries, none under tmp/)

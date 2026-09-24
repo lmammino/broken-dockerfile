@@ -1,0 +1,4 @@
+$ find fs-export/tmp -exec ls -ld {} +
+drwxrwxrwt@ 4 luciano  staff  128 24 Sep 15:24 fs-export/tmp
+-rw-r--r--@ 1 luciano  staff   64 24 Sep 15:19 fs-export/tmp/.wh.foo
+-rw-r--r--@ 1 luciano  staff   48 24 Sep 15:19 fs-export/tmp/foo

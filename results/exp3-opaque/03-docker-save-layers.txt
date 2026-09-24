@@ -1,0 +1,25 @@
+== layer 0: blobs/sha256/88b4fba61c4c714a2fc173ddf7e9324a257304696830bf41ad28ecc58c11c95f
+   created_by: ADD alpine-minirootfs-3.20.10-aarch64.tar.gz / # buildkit
+  DIR  1777 0:0 size=0    tmp
+== layer 1: blobs/sha256/7fb0b843592985af50fd6b339b3e99161cf5a126faee0dbd3505206ebdadcce5
+   created_by: RUN /bin/sh -c mkdir /tmp/dir && echo lower-a > /tmp/dir/a && echo lower-b > /tmp/dir/b # buildkit
+  DIR  1777 0:0 size=0    tmp
+  DIR  0755 0:0 size=0    tmp/dir
+  REG  0644 0:0 size=8    tmp/dir/a
+         content: 'lower-a'
+  REG  0644 0:0 size=8    tmp/dir/b
+         content: 'lower-b'
+== layer 2: blobs/sha256/df6adcd1e5de2f4af06d29813a34019d9586f21bfee83c72a6a0bc30a167b2e9
+   created_by: RUN /bin/sh -c echo "--- ls -la /tmp/dir ---" && ls -la /tmp/dir && for p in /tmp/dir/a /tmp/dir/b /tmp/dir/c /tmp/dir/.wh..wh..opq; do if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done # buildkit
+   (1 entries, none under tmp/)
+== layer 3: blobs/sha256/1171dfd9760ef9021b89fbbf961fcd719abb1dabbd2111c0029195b54b0cd032
+   created_by: COPY .wh..wh..opq c /tmp/dir/ # buildkit
+  DIR  1777 0:0 size=0    tmp
+  DIR  0755 0:0 size=0    tmp/dir
+  REG  0644 0:0 size=74   tmp/dir/.wh..wh..opq   <-- .wh. name
+         content: 'CONTENT-OF-.wh..wh..opq: I am a regular file literally named .wh..wh..opq'
+  REG  0644 0:0 size=54   tmp/dir/c
+         content: 'CONTENT-OF-c: added in the same layer as .wh..wh..opq'
+== layer 4: blobs/sha256/df6adcd1e5de2f4af06d29813a34019d9586f21bfee83c72a6a0bc30a167b2e9
+   created_by: RUN /bin/sh -c echo "--- ls -la /tmp/dir ---" && ls -la /tmp/dir && for p in /tmp/dir/a /tmp/dir/b /tmp/dir/c /tmp/dir/.wh..wh..opq; do if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done # buildkit
+   (1 entries, none under tmp/)

@@ -1,0 +1,24 @@
+$ env DOCKER_BUILDKIT=0 docker build --no-cache -f /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/dockerfiles/exp1-same-layer.Dockerfile -t whiteout-test:exp1-same-layer-legacy /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/context
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            BuildKit is currently disabled; enable it by removing the DOCKER_BUILDKIT=0
+            environment-variable.
+
+Sending build context to Docker daemon  6.703kB
+Step 1/3 : FROM alpine:3.20
+ ---> ab3fe4defd29
+Step 2/3 : COPY foo .wh.foo /tmp/
+ ---> 54862d07b804
+Step 3/3 : RUN echo "--- ls -la /tmp ---" && ls -la /tmp && for p in /tmp/foo /tmp/.wh.foo; do if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done
+ ---> Running in f85ab916683c
+--- ls -la /tmp ---
+total 4
+drwxrwxrwt    1 root     root             6 Sep 24 14:24 .
+drwxr-xr-x    1 root     root            12 Sep 24 14:24 ..
+-rw-r--r--    1 root     root            48 Sep 24 14:19 foo
+EXISTS  /tmp/foo :: CONTENT-OF-foo: I am the regular file named foo
+MISSING /tmp/.wh.foo
+ ---> Removed intermediate container f85ab916683c
+ ---> 02435616c7c0
+Successfully built 02435616c7c0
+Successfully tagged whiteout-test:exp1-same-layer-legacy
+[exit code: 0]

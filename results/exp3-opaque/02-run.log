@@ -1,0 +1,24 @@
+$ docker run --rm whiteout-test:exp3-opaque sh -c for d in /tmp /tmp/dir; do [ -d $d ] && echo "--- ls -la $d ---" && ls -la $d; done;
+for p in /tmp/foo /tmp/.wh.foo /tmp/dir/a /tmp/dir/b /tmp/dir/c /tmp/dir/.wh..wh..opq /tmp/.wh.; do
+  if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done
+--- ls -la /tmp ---
+total 0
+drwxrwxrwt    1 root     root             6 Sep 24 14:24 .
+drwxr-xr-x    1 root     root            12 Sep 24 14:24 ..
+drwxr-xr-x    1 root     root            26 Sep 24 14:24 dir
+--- ls -la /tmp/dir ---
+total 16
+drwxr-xr-x    1 root     root            26 Sep 24 14:24 .
+drwxrwxrwt    1 root     root             6 Sep 24 14:24 ..
+-rw-r--r--    1 root     root            74 Sep 24 14:19 .wh..wh..opq
+-rw-r--r--    1 root     root             8 Sep 24 14:24 a
+-rw-r--r--    1 root     root             8 Sep 24 14:24 b
+-rw-r--r--    1 root     root            54 Sep 24 14:19 c
+MISSING /tmp/foo
+MISSING /tmp/.wh.foo
+EXISTS  /tmp/dir/a :: lower-a
+EXISTS  /tmp/dir/b :: lower-b
+EXISTS  /tmp/dir/c :: CONTENT-OF-c: added in the same layer as .wh..wh..opq
+EXISTS  /tmp/dir/.wh..wh..opq :: CONTENT-OF-.wh..wh..opq: I am a regular file literally named .wh..wh..opq
+MISSING /tmp/.wh.
+[exit code: 0]

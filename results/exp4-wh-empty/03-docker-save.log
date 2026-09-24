@@ -1,0 +1,2 @@
+$ docker image save whiteout-test:exp4-wh-empty -o /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/results/exp4-wh-empty/docker-save.tar
+[exit code: 0]

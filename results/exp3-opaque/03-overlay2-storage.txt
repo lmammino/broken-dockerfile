@@ -1,0 +1,33 @@
+$ docker run --rm -v /var/lib/docker/overlay2:/var/lib/docker/overlay2:ro alpine:3.20 sh -c for d in "$@"; do [ -d "$d/tmp" ] || continue; echo "--- $d/tmp"; ls -laR "$d/tmp"; done sh /var/lib/docker/overlay2/iivb1x6tu8y7pom52klkdhujp/diff /var/lib/docker/overlay2/85ffa0xjf32w083bkgixfq0jf/diff /var/lib/docker/overlay2/rqwczvftwixrv9k2fyrulc5f7/diff /var/lib/docker/overlay2/5ih041gm3wqgxhkbdrf6b0abh/diff /var/lib/docker/overlay2/b6b29f295885742a7c8ab12a5a932a441c9cd803d410f62c7655e002c8e0a81c/diff
+--- /var/lib/docker/overlay2/85ffa0xjf32w083bkgixfq0jf/diff/tmp
+/var/lib/docker/overlay2/85ffa0xjf32w083bkgixfq0jf/diff/tmp:
+total 0
+drwxrwxrwt    1 root     root             6 Sep 24 14:24 .
+drwxr-xr-x    1 root     root             6 Sep 24 14:24 ..
+drwxr-xr-x    1 root     root            26 Sep 24 14:24 dir
+
+/var/lib/docker/overlay2/85ffa0xjf32w083bkgixfq0jf/diff/tmp/dir:
+total 8
+drwxr-xr-x    1 root     root            26 Sep 24 14:24 .
+drwxrwxrwt    1 root     root             6 Sep 24 14:24 ..
+-rw-r--r--    1 root     root            74 Sep 24 14:19 .wh..wh..opq
+-rw-r--r--    1 root     root            54 Sep 24 14:19 c
+--- /var/lib/docker/overlay2/5ih041gm3wqgxhkbdrf6b0abh/diff/tmp
+/var/lib/docker/overlay2/5ih041gm3wqgxhkbdrf6b0abh/diff/tmp:
+total 0
+drwxrwxrwt    1 root     root             6 Sep 24 14:24 .
+drwxr-xr-x    1 root     root            12 Sep 24 14:24 ..
+drwxr-xr-x    1 root     root             4 Sep 24 14:24 dir
+
+/var/lib/docker/overlay2/5ih041gm3wqgxhkbdrf6b0abh/diff/tmp/dir:
+total 8
+drwxr-xr-x    1 root     root             4 Sep 24 14:24 .
+drwxrwxrwt    1 root     root             6 Sep 24 14:24 ..
+-rw-r--r--    1 root     root             8 Sep 24 14:24 a
+-rw-r--r--    1 root     root             8 Sep 24 14:24 b
+--- /var/lib/docker/overlay2/b6b29f295885742a7c8ab12a5a932a441c9cd803d410f62c7655e002c8e0a81c/diff/tmp
+/var/lib/docker/overlay2/b6b29f295885742a7c8ab12a5a932a441c9cd803d410f62c7655e002c8e0a81c/diff/tmp:
+total 0
+drwxrwxrwt    1 root     root             0 Apr 15 16:14 .
+drwxr-xr-x    1 root     root           114 Sep 24 14:20 ..
+[exit code: 0]

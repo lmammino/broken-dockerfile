@@ -1,0 +1,3 @@
+$ docker image load -i /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/results/exp1-same-layer/cb-docker.tar
+Loaded image: whiteout-test:exp1-same-layer-cb
+[exit code: 0]

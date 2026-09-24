@@ -1,0 +1,1 @@
+{"schemaVersion":2,"mediaType":"application/vnd.oci.image.index.v1+json","manifests":[{"mediaType":"application/vnd.oci.image.manifest.v1+json","digest":"sha256:ca484e14ab2c573d0002686a079868a82ab436f0c39482b99e5fbcd200e0dd46","size":1001,"annotations":{"io.containerd.image.name":"docker.io/library/whiteout-test:exp3-opaque","org.opencontainers.image.ref.name":"exp3-opaque"}}]}

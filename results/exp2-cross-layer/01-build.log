@@ -1,0 +1,56 @@
+$ docker build --no-cache --progress=plain -f /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/dockerfiles/exp2-cross-layer.Dockerfile -t whiteout-test:exp2-cross-layer /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/context
+#0 building with "orbstack" instance using docker driver
+
+#1 [internal] load build definition from exp2-cross-layer.Dockerfile
+#1 transferring dockerfile: 541B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/alpine:3.20
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/5] FROM docker.io/library/alpine:3.20
+#4 CACHED
+
+#5 [internal] load build context
+#5 transferring context: 50B done
+#5 DONE 0.0s
+
+#6 [2/5] COPY foo /tmp/foo
+#6 DONE 0.1s
+
+#7 [3/5] RUN echo "--- ls -la /tmp ---" && ls -la /tmp && for p in /tmp/foo /tmp/.wh.foo; do if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done
+#7 0.145 --- ls -la /tmp ---
+#7 0.146 total 4
+#7 0.146 drwxrwxrwt    1 root     root             6 Sep 24 14:24 .
+#7 0.146 drwxr-xr-x    1 root     root             6 Sep 24 14:24 ..
+#7 0.146 -rw-r--r--    1 root     root            48 Sep 24 14:19 foo
+#7 0.147 EXISTS  /tmp/foo :: CONTENT-OF-foo: I am the regular file named foo
+#7 0.147 MISSING /tmp/.wh.foo
+#7 DONE 0.2s
+
+#8 [4/5] COPY .wh.foo /tmp/.wh.foo
+#8 DONE 0.1s
+
+#9 [5/5] RUN echo "--- ls -la /tmp ---" && ls -la /tmp && for p in /tmp/foo /tmp/.wh.foo; do if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done
+#9 0.117 --- ls -la /tmp ---
+#9 0.117 total 8
+#9 0.117 drwxrwxrwt    1 root     root            14 Sep 24 14:24 .
+#9 0.117 drwxr-xr-x    1 root     root             6 Sep 24 14:24 ..
+#9 0.117 -rw-r--r--    1 root     root            64 Sep 24 14:19 .wh.foo
+#9 0.117 -rw-r--r--    1 root     root            48 Sep 24 14:19 foo
+#9 0.117 EXISTS  /tmp/foo :: CONTENT-OF-foo: I am the regular file named foo
+#9 0.118 EXISTS  /tmp/.wh.foo :: CONTENT-OF-.wh.foo: I am a regular file literally named .wh.foo
+#9 DONE 0.1s
+
+#10 exporting to image
+#10 exporting layers 0.1s done
+#10 writing image sha256:136f9ef49847eb22d76bb71712630698c3a339d27ed2824cf1a0e0784e5f2072 done
+#10 naming to docker.io/library/whiteout-test:exp2-cross-layer done
+#10 DONE 0.1s
+
+View build details: docker-desktop://dashboard/build/orbstack/orbstack/f0h09r6t36wxmanp88ck21i29
+[exit code: 0]

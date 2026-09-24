@@ -1,0 +1,48 @@
+$ docker buildx build --builder whiteout-test-builder --no-cache --progress=plain --build-context base=oci-layout:///private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/results/exp4-wh-empty/cb-oci-dir:latest -f /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/dockerfiles/reimport.Dockerfile /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/context
+#0 building with "whiteout-test-builder" instance using docker-container driver
+
+#1 [internal] load build definition from reimport.Dockerfile
+#1 transferring dockerfile: 486B done
+#1 DONE 0.0s
+
+#2 [context base] load metadata for docker.io/library/base@sha256:9fdb8d70cfd269ee7a623aac084a7e4b4d979bbbc417861764adcae7e6d39df8
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context:
+#3 transferring context: 2B done
+#3 DONE 0.1s
+
+#4 [context base] OCI load from client
+#4 resolve docker.io/library/base@sha256:9fdb8d70cfd269ee7a623aac084a7e4b4d979bbbc417861764adcae7e6d39df8 0.0s done
+#4 DONE 0.1s
+
+#4 [context base] OCI load from client
+#4 sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 32B / 32B 0.0s done
+#4 sha256:dde81fd4797f26ab5b9daf25bb5ff31d9efccec8c7a513787473640ffd69c5b2 188B / 188B 0.0s done
+#4 sha256:3f26bc2dec0b515f1c2818f6e13a8f1da1f88179a008445d4e587233386bff78 4.09MB / 4.09MB 0.0s done
+#4 extracting sha256:3f26bc2dec0b515f1c2818f6e13a8f1da1f88179a008445d4e587233386bff78 0.1s done
+#4 DONE 0.2s
+
+#4 [context base] OCI load from client
+#4 extracting sha256:dde81fd4797f26ab5b9daf25bb5ff31d9efccec8c7a513787473640ffd69c5b2 0.0s done
+#4 DONE 0.3s
+
+#5 [1/2] RUN for d in /tmp /tmp/dir; do [ -d $d ] && echo "--- ls -la $d ---" && ls -la $d; done;     for p in /tmp/foo /tmp/.wh.foo /tmp/dir/a /tmp/dir/b /tmp/dir/c /tmp/dir/.wh..wh..opq /tmp/.wh.; do       if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done
+#5 ERROR: invalid whiteout name: .wh.: invalid archive
+------
+ > [1/2] RUN for d in /tmp /tmp/dir; do [ -d $d ] && echo "--- ls -la $d ---" && ls -la $d; done;     for p in /tmp/foo /tmp/.wh.foo /tmp/dir/a /tmp/dir/b /tmp/dir/c /tmp/dir/.wh..wh..opq /tmp/.wh.; do       if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done:
+------
+WARNING: No output specified with docker-container driver. Build result will only remain in the build cache. To push result image into registry use --push or to load image into docker use --load
+reimport.Dockerfile:4
+--------------------
+   3 |     FROM base
+   4 | >>> RUN for d in /tmp /tmp/dir; do [ -d $d ] && echo "--- ls -la $d ---" && ls -la $d; done; \
+   5 | >>>     for p in /tmp/foo /tmp/.wh.foo /tmp/dir/a /tmp/dir/b /tmp/dir/c /tmp/dir/.wh..wh..opq /tmp/.wh.; do \
+   6 | >>>       if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done
+   7 |     
+--------------------
+ERROR: failed to build: failed to solve: failed to compute cache key: invalid whiteout name: .wh.: invalid archive
+
+View build details: docker-desktop://dashboard/build/whiteout-test-builder/whiteout-test-builder0/w1uets3uz97xc3mu0ckkr66cx
+[exit code: 1]

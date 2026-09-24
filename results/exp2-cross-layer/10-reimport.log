@@ -1,0 +1,51 @@
+$ docker buildx build --builder whiteout-test-builder --no-cache --progress=plain --build-context base=oci-layout:///private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/results/exp2-cross-layer/cb-oci-dir:latest -f /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/dockerfiles/reimport.Dockerfile /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/context
+#0 building with "whiteout-test-builder" instance using docker-container driver
+
+#1 [internal] load build definition from reimport.Dockerfile
+#1 transferring dockerfile: 486B done
+#1 DONE 0.0s
+
+#2 [context base] load metadata for docker.io/library/base@sha256:94b5af112d83f8e36b8584cdc63a306738b80632fc9aa4cd6e36e9335ee74cf6
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [context base] OCI load from client
+#4 resolve docker.io/library/base@sha256:94b5af112d83f8e36b8584cdc63a306738b80632fc9aa4cd6e36e9335ee74cf6 0.0s done
+#4 DONE 0.1s
+
+#4 [context base] OCI load from client
+#4 sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 32B / 32B 0.0s done
+#4 sha256:d4a8ba53ed4277e5522a06023d3b774dff73b2a98635de1e16378f61cbe25445 179B / 179B 0.0s done
+#4 sha256:dace76e31ea6313b1465a43973b2d42109f146365272d91ce04ce5be643d02c7 193B / 193B 0.0s done
+#4 sha256:3f26bc2dec0b515f1c2818f6e13a8f1da1f88179a008445d4e587233386bff78 4.09MB / 4.09MB 0.1s done
+#4 extracting sha256:3f26bc2dec0b515f1c2818f6e13a8f1da1f88179a008445d4e587233386bff78
+#4 extracting sha256:3f26bc2dec0b515f1c2818f6e13a8f1da1f88179a008445d4e587233386bff78 0.1s done
+#4 extracting sha256:d4a8ba53ed4277e5522a06023d3b774dff73b2a98635de1e16378f61cbe25445 0.0s done
+#4 extracting sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 0.0s done
+#4 DONE 0.3s
+
+#4 [context base] OCI load from client
+#4 extracting sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 0.0s done
+#4 extracting sha256:dace76e31ea6313b1465a43973b2d42109f146365272d91ce04ce5be643d02c7 0.0s done
+#4 DONE 0.4s
+
+#5 [1/2] RUN for d in /tmp /tmp/dir; do [ -d $d ] && echo "--- ls -la $d ---" && ls -la $d; done;     for p in /tmp/foo /tmp/.wh.foo /tmp/dir/a /tmp/dir/b /tmp/dir/c /tmp/dir/.wh..wh..opq /tmp/.wh.; do       if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done
+#5 0.050 --- ls -la /tmp ---
+#5 0.051 total 0
+#5 0.051 drwxrwxrwt    1 root     root             6 Sep 24 14:24 .
+#5 0.051 drwxr-xr-x    1 root     root             6 Sep 24 14:24 ..
+#5 0.051 MISSING /tmp/foo
+#5 0.051 MISSING /tmp/.wh.foo
+#5 0.051 MISSING /tmp/dir/a
+#5 0.051 MISSING /tmp/dir/b
+#5 0.051 MISSING /tmp/dir/c
+#5 0.051 MISSING /tmp/dir/.wh..wh..opq
+#5 0.051 MISSING /tmp/.wh.
+#5 DONE 0.2s
+WARNING: No output specified with docker-container driver. Build result will only remain in the build cache. To push result image into registry use --push or to load image into docker use --load
+
+View build details: docker-desktop://dashboard/build/whiteout-test-builder/whiteout-test-builder0/szeqdsv9mt41wqmg5qfn1l8e4
+[exit code: 0]

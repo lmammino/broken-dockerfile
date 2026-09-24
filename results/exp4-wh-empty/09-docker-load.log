@@ -1,0 +1,3 @@
+$ docker image load -i /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/results/exp4-wh-empty/cb-docker.tar
+failed to mknod('/tmp', S_IFCHR, 0): file exists
+[exit code: 1]

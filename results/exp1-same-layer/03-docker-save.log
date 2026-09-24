@@ -1,0 +1,2 @@
+$ docker image save whiteout-test:exp1-same-layer -o /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/results/exp1-same-layer/docker-save.tar
+[exit code: 0]

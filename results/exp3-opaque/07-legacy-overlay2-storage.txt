@@ -1,0 +1,32 @@
+$ docker run --rm -v /var/lib/docker/overlay2:/var/lib/docker/overlay2:ro alpine:3.20 sh -c for d in "$@"; do [ -d "$d/tmp" ] || continue; echo "--- $d/tmp"; ls -laR "$d/tmp"; done sh /var/lib/docker/overlay2/56929f9145cbf1e3828f714ea9e166374f9e320b11c957129f81b87168756b60/diff /var/lib/docker/overlay2/cacc2a1bea4e6338e79b2cccadf8b8d0cc7bff8e15d747d8178d2d182e433729/diff /var/lib/docker/overlay2/ea36b3a8963f4bd9edb369f34b5f940aaf8b162d73d4c510a2a0a0516f69a111/diff /var/lib/docker/overlay2/e5a6b99090e28ea078e2429d5b995e4d1a4c7f380fd2b9e8b0836fa46000d7e4/diff /var/lib/docker/overlay2/b6b29f295885742a7c8ab12a5a932a441c9cd803d410f62c7655e002c8e0a81c/diff
+--- /var/lib/docker/overlay2/cacc2a1bea4e6338e79b2cccadf8b8d0cc7bff8e15d747d8178d2d182e433729/diff/tmp
+/var/lib/docker/overlay2/cacc2a1bea4e6338e79b2cccadf8b8d0cc7bff8e15d747d8178d2d182e433729/diff/tmp:
+total 0
+drwxrwxrwt    1 root     root             6 Sep 24 14:24 .
+drwxr-xr-x    1 root     root             6 Sep 24 14:24 ..
+drwxr-xr-x    1 root     root             2 Sep 24 14:24 dir
+
+/var/lib/docker/overlay2/cacc2a1bea4e6338e79b2cccadf8b8d0cc7bff8e15d747d8178d2d182e433729/diff/tmp/dir:
+total 4
+drwxr-xr-x    1 root     root             2 Sep 24 14:24 .
+drwxrwxrwt    1 root     root             6 Sep 24 14:24 ..
+-rw-r--r--    1 root     root            54 Sep 24 14:19 c
+--- /var/lib/docker/overlay2/e5a6b99090e28ea078e2429d5b995e4d1a4c7f380fd2b9e8b0836fa46000d7e4/diff/tmp
+/var/lib/docker/overlay2/e5a6b99090e28ea078e2429d5b995e4d1a4c7f380fd2b9e8b0836fa46000d7e4/diff/tmp:
+total 0
+drwxrwxrwt    1 root     root             6 Sep 24 14:24 .
+drwxr-xr-x    1 root     root            18 Sep 24 14:24 ..
+drwxr-xr-x    1 root     root             4 Sep 24 14:24 dir
+
+/var/lib/docker/overlay2/e5a6b99090e28ea078e2429d5b995e4d1a4c7f380fd2b9e8b0836fa46000d7e4/diff/tmp/dir:
+total 8
+drwxr-xr-x    1 root     root             4 Sep 24 14:24 .
+drwxrwxrwt    1 root     root             6 Sep 24 14:24 ..
+-rw-r--r--    1 root     root             8 Sep 24 14:24 a
+-rw-r--r--    1 root     root             8 Sep 24 14:24 b
+--- /var/lib/docker/overlay2/b6b29f295885742a7c8ab12a5a932a441c9cd803d410f62c7655e002c8e0a81c/diff/tmp
+/var/lib/docker/overlay2/b6b29f295885742a7c8ab12a5a932a441c9cd803d410f62c7655e002c8e0a81c/diff/tmp:
+total 0
+drwxrwxrwt    1 root     root             0 Apr 15 16:14 .
+drwxr-xr-x    1 root     root           114 Sep 24 14:20 ..
+[exit code: 0]

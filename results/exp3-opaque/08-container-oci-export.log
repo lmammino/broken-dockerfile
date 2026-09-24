@@ -1,0 +1,66 @@
+$ docker buildx build --builder whiteout-test-builder --no-cache --progress=plain --output type=oci,dest=/private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/results/exp3-opaque/cb-oci.tar -f /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/dockerfiles/exp3-opaque.Dockerfile /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/context
+#0 building with "whiteout-test-builder" instance using docker-container driver
+
+#1 [internal] load build definition from exp3-opaque.Dockerfile
+#1 transferring dockerfile: 724B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/alpine:3.20
+#2 DONE 0.8s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B 0.0s done
+#3 DONE 0.0s
+
+#4 [1/5] FROM docker.io/library/alpine:3.20@sha256:d9e853e87e55526f6b2917df91a2115c36dd7c696a35be12163d44e6e2a4b6bc
+#4 resolve docker.io/library/alpine:3.20@sha256:d9e853e87e55526f6b2917df91a2115c36dd7c696a35be12163d44e6e2a4b6bc 0.0s done
+#4 DONE 0.1s
+
+#5 [internal] load build context
+#5 transferring context: 197B done
+#5 DONE 0.1s
+
+#6 [2/5] RUN mkdir /tmp/dir && echo lower-a > /tmp/dir/a && echo lower-b > /tmp/dir/b
+#6 DONE 0.1s
+
+#7 [3/5] RUN echo "--- ls -la /tmp/dir ---" && ls -la /tmp/dir && for p in /tmp/dir/a /tmp/dir/b /tmp/dir/c /tmp/dir/.wh..wh..opq; do if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done
+#7 0.059 --- ls -la /tmp/dir ---
+#7 0.059 total 8
+#7 0.059 drwxr-xr-x    1 root     root             4 Sep 24 14:24 .
+#7 0.059 drwxrwxrwt    1 root     root             6 Sep 24 14:24 ..
+#7 0.059 -rw-r--r--    1 root     root             8 Sep 24 14:24 a
+#7 0.059 -rw-r--r--    1 root     root             8 Sep 24 14:24 b
+#7 0.060 EXISTS  /tmp/dir/a :: lower-a
+#7 0.060 EXISTS  /tmp/dir/b :: lower-b
+#7 0.060 MISSING /tmp/dir/c
+#7 0.060 MISSING /tmp/dir/.wh..wh..opq
+#7 DONE 0.1s
+
+#8 [4/5] COPY .wh..wh..opq c /tmp/dir/
+#8 DONE 0.1s
+
+#9 [5/5] RUN echo "--- ls -la /tmp/dir ---" && ls -la /tmp/dir && for p in /tmp/dir/a /tmp/dir/b /tmp/dir/c /tmp/dir/.wh..wh..opq; do if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done
+#9 0.043 --- ls -la /tmp/dir ---
+#9 0.044 total 16
+#9 0.044 drwxr-xr-x    1 root     root            26 Sep 24 14:24 .
+#9 0.044 drwxrwxrwt    1 root     root             6 Sep 24 14:24 ..
+#9 0.044 -rw-r--r--    1 root     root            74 Sep 24 14:19 .wh..wh..opq
+#9 0.044 -rw-r--r--    1 root     root             8 Sep 24 14:24 a
+#9 0.044 -rw-r--r--    1 root     root             8 Sep 24 14:24 b
+#9 0.044 -rw-r--r--    1 root     root            54 Sep 24 14:19 c
+#9 0.045 EXISTS  /tmp/dir/a :: lower-a
+#9 0.046 EXISTS  /tmp/dir/b :: lower-b
+#9 0.046 EXISTS  /tmp/dir/c :: CONTENT-OF-c: added in the same layer as .wh..wh..opq
+#9 0.046 EXISTS  /tmp/dir/.wh..wh..opq :: CONTENT-OF-.wh..wh..opq: I am a regular file literally named .wh..wh..opq
+#9 DONE 0.1s
+
+#10 exporting to oci image format
+#10 exporting layers
+#10 exporting layers 0.2s done
+#10 exporting manifest sha256:363b82f44c8ceaebce80753ed27f905bb5f9e9be60531dd46a127fbcf2f98b91 done
+#10 exporting config sha256:3978c82b58e5f5b5bb35b909aad295f32f47ed3db5e17257723df5daefd70bd8 done
+#10 sending tarball 0.0s done
+#10 DONE 0.3s
+
+View build details: docker-desktop://dashboard/build/whiteout-test-builder/whiteout-test-builder0/gm8u1uqefagx1w9wnh8ye4v5p
+[exit code: 0]

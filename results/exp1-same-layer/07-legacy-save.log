@@ -1,0 +1,3 @@
+$ docker image save whiteout-test:exp1-same-layer-legacy -o /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/results/exp1-same-layer/legacy-save.tar
+Error response from daemon: open /var/lib/docker/overlay2/f2799b97c5fbe8874a406b929f4fdcdd081531e983514d7f440cf2bbf5a9c12b/merged/tmp/.wh.foo: no such file or directory
+[exit code: 1]

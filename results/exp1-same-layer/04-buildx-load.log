@@ -1,0 +1,43 @@
+$ docker buildx build --load --no-cache --progress=plain -f /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/dockerfiles/exp1-same-layer.Dockerfile -t whiteout-test:exp1-same-layer-buildx /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/context
+#0 building with "orbstack" instance using docker driver
+
+#1 [internal] load build definition from exp1-same-layer.Dockerfile
+#1 transferring dockerfile: 344B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/alpine:3.20
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/3] FROM docker.io/library/alpine:3.20
+#4 CACHED
+
+#5 [internal] load build context
+#5 transferring context: 50B done
+#5 DONE 0.0s
+
+#6 [2/3] COPY foo .wh.foo /tmp/
+#6 DONE 0.0s
+
+#7 [3/3] RUN echo "--- ls -la /tmp ---" && ls -la /tmp && for p in /tmp/foo /tmp/.wh.foo; do if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done
+#7 0.114 --- ls -la /tmp ---
+#7 0.115 total 8
+#7 0.115 drwxrwxrwt    1 root     root            20 Sep 24 14:24 .
+#7 0.115 drwxr-xr-x    1 root     root             6 Sep 24 14:24 ..
+#7 0.115 -rw-r--r--    1 root     root            64 Sep 24 14:19 .wh.foo
+#7 0.115 -rw-r--r--    1 root     root            48 Sep 24 14:19 foo
+#7 0.115 EXISTS  /tmp/foo :: CONTENT-OF-foo: I am the regular file named foo
+#7 0.116 EXISTS  /tmp/.wh.foo :: CONTENT-OF-.wh.foo: I am a regular file literally named .wh.foo
+#7 DONE 0.1s
+
+#8 exporting to image
+#8 exporting layers 0.0s done
+#8 writing image sha256:2aa928fd406e889c991cf6ead5bd8369ee98ed0508b750a5760042f8bcf360f6 done
+#8 naming to docker.io/library/whiteout-test:exp1-same-layer-buildx done
+#8 DONE 0.1s
+
+View build details: docker-desktop://dashboard/build/orbstack/orbstack/e0h4tiidfjxrli3vg9lorzpzp
+[exit code: 0]

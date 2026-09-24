@@ -1,0 +1,63 @@
+$ docker build --no-cache --progress=plain -f /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/dockerfiles/exp3-opaque.Dockerfile -t whiteout-test:exp3-opaque /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/context
+#0 building with "orbstack" instance using docker driver
+
+#1 [internal] load build definition from exp3-opaque.Dockerfile
+#1 transferring dockerfile: 724B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/alpine:3.20
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/5] FROM docker.io/library/alpine:3.20
+#4 CACHED
+
+#5 [internal] load build context
+#5 transferring context: 197B done
+#5 DONE 0.0s
+
+#6 [2/5] RUN mkdir /tmp/dir && echo lower-a > /tmp/dir/a && echo lower-b > /tmp/dir/b
+#6 DONE 0.1s
+
+#7 [3/5] RUN echo "--- ls -la /tmp/dir ---" && ls -la /tmp/dir && for p in /tmp/dir/a /tmp/dir/b /tmp/dir/c /tmp/dir/.wh..wh..opq; do if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done
+#7 0.136 --- ls -la /tmp/dir ---
+#7 0.137 total 8
+#7 0.137 drwxr-xr-x    1 root     root             4 Sep 24 14:24 .
+#7 0.137 drwxrwxrwt    1 root     root             6 Sep 24 14:24 ..
+#7 0.137 -rw-r--r--    1 root     root             8 Sep 24 14:24 a
+#7 0.137 -rw-r--r--    1 root     root             8 Sep 24 14:24 b
+#7 0.137 EXISTS  /tmp/dir/a :: lower-a
+#7 0.137 EXISTS  /tmp/dir/b :: lower-b
+#7 0.137 MISSING /tmp/dir/c
+#7 0.137 MISSING /tmp/dir/.wh..wh..opq
+#7 DONE 0.2s
+
+#8 [4/5] COPY .wh..wh..opq c /tmp/dir/
+#8 DONE 0.1s
+
+#9 [5/5] RUN echo "--- ls -la /tmp/dir ---" && ls -la /tmp/dir && for p in /tmp/dir/a /tmp/dir/b /tmp/dir/c /tmp/dir/.wh..wh..opq; do if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done
+#9 0.134 --- ls -la /tmp/dir ---
+#9 0.135 total 16
+#9 0.135 drwxr-xr-x    1 root     root            26 Sep 24 14:24 .
+#9 0.135 drwxrwxrwt    1 root     root             6 Sep 24 14:24 ..
+#9 0.135 -rw-r--r--    1 root     root            74 Sep 24 14:19 .wh..wh..opq
+#9 0.135 -rw-r--r--    1 root     root             8 Sep 24 14:24 a
+#9 0.135 -rw-r--r--    1 root     root             8 Sep 24 14:24 b
+#9 0.135 -rw-r--r--    1 root     root            54 Sep 24 14:19 c
+#9 0.135 EXISTS  /tmp/dir/a :: lower-a
+#9 0.136 EXISTS  /tmp/dir/b :: lower-b
+#9 0.136 EXISTS  /tmp/dir/c :: CONTENT-OF-c: added in the same layer as .wh..wh..opq
+#9 0.136 EXISTS  /tmp/dir/.wh..wh..opq :: CONTENT-OF-.wh..wh..opq: I am a regular file literally named .wh..wh..opq
+#9 DONE 0.2s
+
+#10 exporting to image
+#10 exporting layers 0.1s done
+#10 writing image sha256:e2f6b4de4fb29c2fb3fe6d8ce8d31ac5e4420906e64d88e7909fb9631bae6d0f done
+#10 naming to docker.io/library/whiteout-test:exp3-opaque done
+#10 DONE 0.1s
+
+View build details: docker-desktop://dashboard/build/orbstack/orbstack/t4oqz1pdlai47zm4xvtyy47he
+[exit code: 0]

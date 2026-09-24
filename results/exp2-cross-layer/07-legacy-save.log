@@ -1,0 +1,3 @@
+$ docker image save whiteout-test:exp2-cross-layer-legacy -o /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/results/exp2-cross-layer/legacy-save.tar
+Error response from daemon: open /var/lib/docker/overlay2/83556aa97223617cc5028d048934a8d3a649c967b25392ec0cf63a91b85f12f2/merged/tmp/.wh.foo: no such file or directory
+[exit code: 1]

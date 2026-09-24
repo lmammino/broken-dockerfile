@@ -1,0 +1,5 @@
+$ docker buildx build --no-cache --progress=plain --output type=oci,dest=/private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/results/exp1-same-layer/oci.tar -f /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/dockerfiles/exp1-same-layer.Dockerfile /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/context
+ERROR: failed to build: OCI exporter is not supported for the docker driver.
+Switch to a different driver, or turn on the containerd image store, and try again.
+Learn more at https://docs.docker.com/go/build-exporters/
+[exit code: 1]

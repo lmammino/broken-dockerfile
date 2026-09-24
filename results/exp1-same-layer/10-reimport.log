@@ -1,0 +1,46 @@
+$ docker buildx build --builder whiteout-test-builder --no-cache --progress=plain --build-context base=oci-layout:///private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/results/exp1-same-layer/cb-oci-dir:latest -f /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/dockerfiles/reimport.Dockerfile /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/context
+#0 building with "whiteout-test-builder" instance using docker-container driver
+
+#1 [internal] load build definition from reimport.Dockerfile
+#1 transferring dockerfile: 486B done
+#1 DONE 0.0s
+
+#2 [context base] load metadata for docker.io/library/base@sha256:c62ee6383864ad6520634b8847e4519ef641fe64b16b3a8018397b4582f5e248
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context:
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [context base] OCI load from client
+#4 resolve docker.io/library/base@sha256:c62ee6383864ad6520634b8847e4519ef641fe64b16b3a8018397b4582f5e248 done
+#4 sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 32B / 32B done
+#4 sha256:428652d3b40a3bbb7817e99b09c934efc254750a3334be0e6d3d78cd2f784ea8 229B / 229B 0.0s done
+#4 sha256:3f26bc2dec0b515f1c2818f6e13a8f1da1f88179a008445d4e587233386bff78 4.09MB / 4.09MB 0.0s done
+#4 extracting sha256:3f26bc2dec0b515f1c2818f6e13a8f1da1f88179a008445d4e587233386bff78 0.1s done
+#4 DONE 0.2s
+
+#4 [context base] OCI load from client
+#4 extracting sha256:428652d3b40a3bbb7817e99b09c934efc254750a3334be0e6d3d78cd2f784ea8 0.0s done
+#4 extracting sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 0.0s done
+#4 DONE 0.2s
+
+#5 [1/2] RUN for d in /tmp /tmp/dir; do [ -d $d ] && echo "--- ls -la $d ---" && ls -la $d; done;     for p in /tmp/foo /tmp/.wh.foo /tmp/dir/a /tmp/dir/b /tmp/dir/c /tmp/dir/.wh..wh..opq /tmp/.wh.; do       if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done
+#5 0.032 --- ls -la /tmp ---
+#5 0.033 total 4
+#5 0.033 drwxrwxrwt    1 root     root             6 Sep 24 14:24 .
+#5 0.033 drwxr-xr-x    1 root     root             6 Sep 24 14:24 ..
+#5 0.033 -rw-r--r--    1 root     root            48 Sep 24 14:19 foo
+#5 0.034 EXISTS  /tmp/foo :: CONTENT-OF-foo: I am the regular file named foo
+#5 0.034 MISSING /tmp/.wh.foo
+#5 0.034 MISSING /tmp/dir/a
+#5 0.034 MISSING /tmp/dir/b
+#5 0.034 MISSING /tmp/dir/c
+#5 0.034 MISSING /tmp/dir/.wh..wh..opq
+#5 0.034 MISSING /tmp/.wh.
+#5 DONE 0.1s
+WARNING: No output specified with docker-container driver. Build result will only remain in the build cache. To push result image into registry use --push or to load image into docker use --load
+
+View build details: docker-desktop://dashboard/build/whiteout-test-builder/whiteout-test-builder0/ou1wtwvnt5b0pbyu4o4j2xb9u
+[exit code: 0]

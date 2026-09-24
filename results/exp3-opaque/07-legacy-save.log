@@ -1,0 +1,3 @@
+$ docker image save whiteout-test:exp3-opaque-legacy -o /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/results/exp3-opaque/legacy-save.tar
+Error response from daemon: open /var/lib/docker/overlay2/cacc2a1bea4e6338e79b2cccadf8b8d0cc7bff8e15d747d8178d2d182e433729/merged/tmp/dir/.wh..wh..opq: no such file or directory
+[exit code: 1]

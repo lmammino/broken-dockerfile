@@ -1,0 +1,16 @@
+$ docker run --rm whiteout-test:exp4-wh-empty sh -c for d in /tmp /tmp/dir; do [ -d $d ] && echo "--- ls -la $d ---" && ls -la $d; done;
+for p in /tmp/foo /tmp/.wh.foo /tmp/dir/a /tmp/dir/b /tmp/dir/c /tmp/dir/.wh..wh..opq /tmp/.wh.; do
+  if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done
+--- ls -la /tmp ---
+total 4
+drwxrwxrwt    1 root     root             8 Sep 24 14:24 .
+drwxr-xr-x    1 root     root            12 Sep 24 14:24 ..
+-rw-r--r--    1 root     root            58 Sep 24 14:19 .wh.
+MISSING /tmp/foo
+MISSING /tmp/.wh.foo
+MISSING /tmp/dir/a
+MISSING /tmp/dir/b
+MISSING /tmp/dir/c
+MISSING /tmp/dir/.wh..wh..opq
+EXISTS  /tmp/.wh. :: CONTENT-OF-.wh.: I am a regular file literally named .wh.
+[exit code: 0]

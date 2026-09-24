@@ -1,0 +1,44 @@
+$ env DOCKER_BUILDKIT=0 docker build --no-cache -f /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/dockerfiles/exp3-opaque.Dockerfile -t whiteout-test:exp3-opaque-legacy /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/context
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            BuildKit is currently disabled; enable it by removing the DOCKER_BUILDKIT=0
+            environment-variable.
+
+Sending build context to Docker daemon  7.215kB
+Step 1/5 : FROM alpine:3.20
+ ---> ab3fe4defd29
+Step 2/5 : RUN mkdir /tmp/dir && echo lower-a > /tmp/dir/a && echo lower-b > /tmp/dir/b
+ ---> Running in 1715c5cbdc4d
+ ---> Removed intermediate container 1715c5cbdc4d
+ ---> 7d6a9ae9d4c5
+Step 3/5 : RUN echo "--- ls -la /tmp/dir ---" && ls -la /tmp/dir && for p in /tmp/dir/a /tmp/dir/b /tmp/dir/c /tmp/dir/.wh..wh..opq; do if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done
+ ---> Running in 348af4a1089e
+--- ls -la /tmp/dir ---
+total 8
+drwxr-xr-x    1 root     root             4 Sep 24 14:24 .
+drwxrwxrwt    1 root     root             6 Sep 24 14:24 ..
+-rw-r--r--    1 root     root             8 Sep 24 14:24 a
+-rw-r--r--    1 root     root             8 Sep 24 14:24 b
+EXISTS  /tmp/dir/a :: lower-a
+EXISTS  /tmp/dir/b :: lower-b
+MISSING /tmp/dir/c
+MISSING /tmp/dir/.wh..wh..opq
+ ---> Removed intermediate container 348af4a1089e
+ ---> f86b62fa1e63
+Step 4/5 : COPY .wh..wh..opq c /tmp/dir/
+ ---> 90f19e342cee
+Step 5/5 : RUN echo "--- ls -la /tmp/dir ---" && ls -la /tmp/dir && for p in /tmp/dir/a /tmp/dir/b /tmp/dir/c /tmp/dir/.wh..wh..opq; do if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done
+ ---> Running in f086c6375b9f
+--- ls -la /tmp/dir ---
+total 4
+drwxr-xr-x    1 root     root             2 Sep 24 14:24 .
+drwxrwxrwt    1 root     root             6 Sep 24 14:24 ..
+-rw-r--r--    1 root     root            54 Sep 24 14:19 c
+MISSING /tmp/dir/a
+MISSING /tmp/dir/b
+EXISTS  /tmp/dir/c :: CONTENT-OF-c: added in the same layer as .wh..wh..opq
+MISSING /tmp/dir/.wh..wh..opq
+ ---> Removed intermediate container f086c6375b9f
+ ---> 0020d3310be0
+Successfully built 0020d3310be0
+Successfully tagged whiteout-test:exp3-opaque-legacy
+[exit code: 0]

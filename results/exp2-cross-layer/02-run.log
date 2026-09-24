@@ -1,0 +1,17 @@
+$ docker run --rm whiteout-test:exp2-cross-layer sh -c for d in /tmp /tmp/dir; do [ -d $d ] && echo "--- ls -la $d ---" && ls -la $d; done;
+for p in /tmp/foo /tmp/.wh.foo /tmp/dir/a /tmp/dir/b /tmp/dir/c /tmp/dir/.wh..wh..opq /tmp/.wh.; do
+  if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done
+--- ls -la /tmp ---
+total 8
+drwxrwxrwt    1 root     root            14 Sep 24 14:24 .
+drwxr-xr-x    1 root     root            12 Sep 24 14:24 ..
+-rw-r--r--    1 root     root            64 Sep 24 14:19 .wh.foo
+-rw-r--r--    1 root     root            48 Sep 24 14:19 foo
+EXISTS  /tmp/foo :: CONTENT-OF-foo: I am the regular file named foo
+EXISTS  /tmp/.wh.foo :: CONTENT-OF-.wh.foo: I am a regular file literally named .wh.foo
+MISSING /tmp/dir/a
+MISSING /tmp/dir/b
+MISSING /tmp/dir/c
+MISSING /tmp/dir/.wh..wh..opq
+MISSING /tmp/.wh.
+[exit code: 0]

@@ -1,0 +1,39 @@
+$ docker buildx build --no-cache --progress=plain --output type=local,dest=/private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/results/exp4-wh-empty/fs-export -f /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/dockerfiles/exp4-wh-empty.Dockerfile /private/var/folders/ck/65b8td5n39d92l51srvjdp1m0000gn/T/tmp.PSoE4F49Nf/docker-whiteout-test/context
+#0 building with "orbstack" instance using docker driver
+
+#1 [internal] load build definition from exp4-wh-empty.Dockerfile
+#1 transferring dockerfile: 319B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/alpine:3.20
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/3] FROM docker.io/library/alpine:3.20
+#4 CACHED
+
+#5 [internal] load build context
+#5 transferring context: 25B done
+#5 DONE 0.0s
+
+#6 [2/3] COPY .wh. /tmp/.wh.
+#6 DONE 0.1s
+
+#7 [3/3] RUN echo "--- ls -la /tmp ---" && ls -la /tmp && for p in /tmp/.wh.; do if [ -e "$p" ]; then echo "EXISTS  $p :: $(cat "$p")"; else echo "MISSING $p"; fi; done
+#7 0.131 --- ls -la /tmp ---
+#7 0.131 total 4
+#7 0.131 drwxrwxrwt    1 root     root             8 Sep 24 14:24 .
+#7 0.131 drwxr-xr-x    1 root     root             6 Sep 24 14:24 ..
+#7 0.131 -rw-r--r--    1 root     root            58 Sep 24 14:19 .wh.
+#7 0.132 EXISTS  /tmp/.wh. :: CONTENT-OF-.wh.: I am a regular file literally named .wh.
+#7 DONE 0.2s
+
+#8 exporting to client directory
+#8 copying files 8.85MB 0.1s done
+#8 DONE 0.1s
+
+View build details: docker-desktop://dashboard/build/orbstack/orbstack/vr1hlnjwvxygz8rb7ap42tl7d
+[exit code: 0]
