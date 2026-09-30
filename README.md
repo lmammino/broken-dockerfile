@@ -35,8 +35,10 @@ scripts/
   run-all.sh               runs every experiment through every path
   inspect_layers.py        lists tar entries (type, mode, size, content, PAX)
   container-builder.sh     creates/removes the temporary docker-container builder
+  registry-roundtrip.sh    docker build + push to a local registry, pull on fresh daemons
 results/<exp>/             logs, layer listings, extracted index/manifest/config
                            and the small layer blobs
+results/registry-roundtrip/ logs of the registry round trip, per experiment
 ```
 
 Every file in `context/` holds text that names the file. For example,
@@ -49,6 +51,8 @@ Every file in `context/` holds text that names the file. For example,
 scripts/container-builder.sh create   # optional, enables steps 8-10
 scripts/run-all.sh                    # or: scripts/run-all.sh exp2-cross-layer
 scripts/container-builder.sh remove
+
+scripts/registry-roundtrip.sh         # registry round trip, see below
 ```
 
 For each experiment, `run-all.sh` runs these commands (paths shortened):
@@ -195,6 +199,49 @@ unpacks that layer:
 - Legacy builder, at the COPY step itself:
   `Step 2/3 : COPY .wh. /tmp/.wh.` then `failed to mknod('/tmp', S_IFCHR, 0): file exists`
 
+### Registry round trip (`docker push` / `docker pull`)
+
+`scripts/registry-roundtrip.sh` tests the most common real-world path: build
+with the default builder, push, pull somewhere else. For exp1 to exp3 it:
+
+1. starts `registry:2` on a dedicated Docker network;
+2. runs a plain `docker build` (default builder, overlay2) and
+   `docker push localhost:5000/whiteout-test:$EXP`;
+3. lists the `COPY` layer blob as stored in the registry (`crane blob`), and
+   flattens the image with `crane export`;
+4. pulls and runs the probe on two fresh `docker:dind` daemons (Engine
+   29.8.1) that have never seen these layers: one with the **containerd image
+   store** (the default, `overlayfs` snapshotter) and one with the classic
+   **overlay2** graph driver.
+
+The registry holds the same plain regular-file entries as before:
+
+```text
+exp1:  tmp/.wh.foo (64 bytes) + tmp/foo (48 bytes), same layer
+exp2:  tmp/.wh.foo (64 bytes)
+exp3:  tmp/dir/.wh..wh..opq (74 bytes) + tmp/dir/c
+```
+
+Both fresh daemons give the same results as the tarball and OCI-layout
+re-imports (steps 9 and 10):
+
+| Experiment | containerd image store | overlay2 |
+|---|---|---|
+| exp1 | `foo` EXISTS, `.wh.foo` MISSING | same |
+| exp2 | `foo` and `.wh.foo` both MISSING | same |
+| exp3 | `a`, `b`, `.wh..wh..opq` MISSING, `c` EXISTS | same |
+
+`crane export` (go-containerregistry, `crane:debug` image) agrees on exp2
+and exp3, but **not on exp1**: its flattened output drops `tmp/foo` too, so
+the whiteout hides a sibling from its own layer. The OCI spec says it should
+not ("Files that are present in the same layer as a whiteout file can only be
+hidden by whiteout files in subsequent layers"). `mutate.Extract` records
+whiteouts in its `fileMap` while it reads a layer, and `tmp/.wh.foo` comes
+before `tmp/foo` in the tar, so `foo` is skipped. The outcome depends on the
+entry order.
+
+Logs are in `results/registry-roundtrip/`.
+
 ### Legacy builder (`DOCKER_BUILDKIT=0`)
 
 The legacy builder applies whiteout semantics at COPY time, inside the build.
@@ -234,8 +281,8 @@ Every save of its images fails:
    the container runs from the image BuildKit built on the same daemon, which
    reuses BuildKit's overlay2 directories. Once the image goes through a
    serialized layer (`docker load` of an export, or BuildKit importing an OCI
-   layout), `.wh.foo` never exists. Moving the same image through a registry
-   or tarball changes its filesystem.
+   layout, or `docker pull` on a fresh daemon), `.wh.foo` never exists. Moving
+   the same image through a registry or tarball changes its filesystem.
 
 4. **How is `.wh.foo` serialized?** As a plain regular-file tar entry
    `tmp/.wh.foo` with its original mode and content, no special PAX
@@ -262,10 +309,11 @@ Every save of its images fails:
 
 ## Notes and limits
 
-- Only the overlay2 graph driver was tested. The containerd image store (the
-  default on new Docker installs) was not enabled, so the docker-driver OCI
-  export was unavailable and step 10 used the docker-container builder
-  instead.
+- Builds used only the overlay2 graph driver. The containerd image store (the
+  default on new Docker installs) was not enabled on the build host, so the
+  docker-driver OCI export was unavailable and step 10 used the
+  docker-container builder instead. The registry round trip does pull with
+  the containerd image store, on a fresh `docker:dind` daemon.
 - `docker image load` printed no per-layer progress without a TTY. The
   changed filesystem in step 9 shows that the layers were applied again.
 - `scripts/container-builder.sh` adds a buildx builder and a BuildKit

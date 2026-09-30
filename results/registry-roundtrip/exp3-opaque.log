@@ -1,0 +1,47 @@
+== build + push (exp3-opaque)
+sha256:dcaea21b1253463c04483565347c8e87da626101946015651002fdfbef05cc70
+localhost:5000/whiteout-test:exp3-opaque
+== COPY layer entries in the registry (second-to-last layer)
+drwxrwxrwt 0/0         0 2026-09-29 20:51:18 tmp/
+drwxr-xr-x 0/0         0 2026-09-29 20:51:18 tmp/dir/
+-rw-r--r-- 0/0        74 2026-09-28 07:31:21 tmp/dir/.wh..wh..opq
+-rw-r--r-- 0/0        54 2026-09-28 07:31:21 tmp/dir/c
+== crane export (flattened, whiteouts applied)
+drwxr-xr-x 0/0         0 2026-09-29 20:51:18 tmp/dir
+-rw-r--r-- 0/0        54 2026-09-28 07:31:21 tmp/dir/c
+== pull + run on wh-dind-containerd
+wh-registry:5000/whiteout-test:exp3-opaque
+--- ls -la /tmp ---
+total 0
+drwxrwxrwt    1 root     root             6 Sep 29 20:51 .
+drwxr-xr-x    1 root     root             0 Sep 29 20:51 ..
+drwxr-xr-x    1 root     root             2 Sep 29 20:51 dir
+--- ls -la /tmp/dir ---
+total 4
+drwxr-xr-x    1 root     root             2 Sep 29 20:51 .
+drwxrwxrwt    1 root     root             6 Sep 29 20:51 ..
+-rw-r--r--    1 root     root            54 Sep 28 07:31 c
+MISSING /tmp/foo
+MISSING /tmp/.wh.foo
+MISSING /tmp/dir/a
+MISSING /tmp/dir/b
+EXISTS  /tmp/dir/c :: CONTENT-OF-c: added in the same layer as .wh..wh..opq
+MISSING /tmp/dir/.wh..wh..opq
+== pull + run on wh-dind-overlay2
+wh-registry:5000/whiteout-test:exp3-opaque
+--- ls -la /tmp ---
+total 0
+drwxrwxrwt    1 root     root             6 Sep 29 20:51 .
+drwxr-xr-x    1 root     root             0 Sep 29 20:51 ..
+drwxr-xr-x    1 root     root             2 Sep 29 20:51 dir
+--- ls -la /tmp/dir ---
+total 4
+drwxr-xr-x    1 root     root             2 Sep 29 20:51 .
+drwxrwxrwt    1 root     root             6 Sep 29 20:51 ..
+-rw-r--r--    1 root     root            54 Sep 28 07:31 c
+MISSING /tmp/foo
+MISSING /tmp/.wh.foo
+MISSING /tmp/dir/a
+MISSING /tmp/dir/b
+EXISTS  /tmp/dir/c :: CONTENT-OF-c: added in the same layer as .wh..wh..opq
+MISSING /tmp/dir/.wh..wh..opq

@@ -1,0 +1,31 @@
+== build + push (exp2-cross-layer)
+sha256:0ca536af18473c98fef662ec00c687a8679b8a6c32dd0e93d0508a249ac1b81d
+localhost:5000/whiteout-test:exp2-cross-layer
+== COPY layer entries in the registry (second-to-last layer)
+drwxrwxrwt 0/0         0 2026-09-29 20:51:15 tmp/
+-rw-r--r-- 0/0        64 2026-09-28 07:31:21 tmp/.wh.foo
+== crane export (flattened, whiteouts applied)
+== pull + run on wh-dind-containerd
+wh-registry:5000/whiteout-test:exp2-cross-layer
+--- ls -la /tmp ---
+total 0
+drwxrwxrwt    1 root     root             6 Sep 29 20:51 .
+drwxr-xr-x    1 root     root             0 Sep 29 20:51 ..
+MISSING /tmp/foo
+MISSING /tmp/.wh.foo
+MISSING /tmp/dir/a
+MISSING /tmp/dir/b
+MISSING /tmp/dir/c
+MISSING /tmp/dir/.wh..wh..opq
+== pull + run on wh-dind-overlay2
+wh-registry:5000/whiteout-test:exp2-cross-layer
+--- ls -la /tmp ---
+total 0
+drwxrwxrwt    1 root     root             6 Sep 29 20:51 .
+drwxr-xr-x    1 root     root             0 Sep 29 20:51 ..
+MISSING /tmp/foo
+MISSING /tmp/.wh.foo
+MISSING /tmp/dir/a
+MISSING /tmp/dir/b
+MISSING /tmp/dir/c
+MISSING /tmp/dir/.wh..wh..opq
